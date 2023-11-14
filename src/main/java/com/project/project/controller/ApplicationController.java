@@ -2,6 +2,7 @@ package com.project.project.controller;
 
 import com.project.project.model.Category;
 import com.project.project.model.Product;
+import com.project.project.model.ShoppingCart;
 import com.project.project.model.User;
 import com.project.project.service.CategoryService;
 import com.project.project.service.ProductService;
@@ -55,11 +56,17 @@ public class ApplicationController {
     }
 
     @GetMapping(path = "checkout")
-    public String getCheckOut(Model model){
-        if (userService.isUserLogin()){
-            model.addAttribute("isUserLogin", true);
+    public String getCheckOut(Model model, HttpSession session){
+        if (!userService.isUserLogin()){
+            model.addAttribute("isUserLogin", false);
+            return "redirect:/login";
         }
-        else model.addAttribute("isUserLogin", false);
+        else model.addAttribute("isUserLogin", true);
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        if (cart == null){
+            cart = new ShoppingCart();
+        }
+        model.addAttribute("cart", cart);
         return "checkout";
     }
 
@@ -74,5 +81,10 @@ public class ApplicationController {
         model.addAttribute("categories", categories);
         model.addAttribute("products", products);
         return "home-product";
+    }
+
+    @GetMapping("/page_not_found")
+    public String pageNotFound(Model model){
+        return "404";
     }
 }

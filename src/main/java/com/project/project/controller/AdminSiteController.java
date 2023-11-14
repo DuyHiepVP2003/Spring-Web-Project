@@ -31,6 +31,9 @@ public class AdminSiteController {
         if (user == null) {
             return "redirect:/login";
         }
+        if (!user.getRole().getName().equals("ADMIN")){
+            return "redirect:/page_not_found";
+        }
         return "admin";
     }
 
