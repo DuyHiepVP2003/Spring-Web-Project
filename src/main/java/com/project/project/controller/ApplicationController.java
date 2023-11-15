@@ -1,10 +1,8 @@
 package com.project.project.controller;
 
-import com.project.project.model.Category;
-import com.project.project.model.Product;
-import com.project.project.model.ShoppingCart;
-import com.project.project.model.User;
+import com.project.project.model.*;
 import com.project.project.service.CategoryService;
+import com.project.project.service.OrderService;
 import com.project.project.service.ProductService;
 import com.project.project.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +22,8 @@ public class ApplicationController {
     private CategoryService categoryService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
     @GetMapping(path = "")
     public String getHomePath(Model model){
         return "redirect:/home";
@@ -66,6 +66,7 @@ public class ApplicationController {
         if (cart == null){
             cart = new ShoppingCart();
         }
+        model.addAttribute("orderForm", new OrderFormDTO());
         model.addAttribute("cart", cart);
         return "checkout";
     }
