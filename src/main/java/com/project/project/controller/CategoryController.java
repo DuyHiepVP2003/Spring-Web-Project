@@ -14,7 +14,7 @@ public class CategoryController {
 
     @GetMapping(path = "/admin/category/addnew")
     public String addNewCategory(){
-        return "category-addnew";
+        return "adminsite/category/category-addnew";
     }
     @PostMapping(path = "/admin/category/save")
     public String postNewCategory(Category category){
@@ -26,7 +26,7 @@ public class CategoryController {
     public String findCategoryById(@PathVariable Long id, Model model){
         Category category = categoryService.findCategoryById(id).orElse(null);
         model.addAttribute("category", category);
-        return "category-update";
+        return "adminsite/category/category-update";
     }
     @RequestMapping(path = "admin/category/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteById(@PathVariable Long id){

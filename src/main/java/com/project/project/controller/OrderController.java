@@ -51,7 +51,7 @@ public class OrderController {
     public String orderDetail(@PathVariable Long id, Model model){
         Order order = orderService.getOrderById(id).orElse(null);
         model.addAttribute("order",order);
-        return "order-detail";
+        return "adminsite/order/order-detail";
     }
 
     @RequestMapping(path = "/admin/order/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})

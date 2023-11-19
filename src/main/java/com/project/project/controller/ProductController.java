@@ -33,14 +33,14 @@ public class ProductController {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("product", product);
         model.addAttribute("categories", categories);
-        return "product-update";
+        return "adminsite/product/product-update";
     }
 
     @GetMapping(path = "/admin/product/addnew")
     public String addNewProduct(Model model){
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories",categories);
-        return "product-addnew";
+        return "adminsite/product/product-addnew";
     }
 
     @PostMapping(path = "/admin/product/save")

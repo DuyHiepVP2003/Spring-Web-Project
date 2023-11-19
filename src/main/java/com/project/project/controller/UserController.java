@@ -25,7 +25,7 @@ public class UserController {
         List<User> users = userService.findAll();
         model.addAttribute("roles", roles);
         model.addAttribute("users", users);
-        return "user-addnew";
+        return "adminsite/user/user-addnew";
     }
 
     @PostMapping(path = "/admin/user/save")
@@ -46,7 +46,7 @@ public class UserController {
         List<Role> roles = roleService.findAll();
         model.addAttribute("user", user);
         model.addAttribute("roles", roles);
-        return "user-update";
+        return "adminsite/user/user-update";
     }
 
 

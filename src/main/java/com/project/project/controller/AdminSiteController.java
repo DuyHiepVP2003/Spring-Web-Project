@@ -37,32 +37,32 @@ public class AdminSiteController {
         if (!user.getRole().getName().equals("ADMIN")){
             return "redirect:/page_not_found";
         }
-        return "admin";
+        return "adminsite/admin";
     }
 
     @GetMapping(path = "/category")
     public String manageCategory(Model model){
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
-        return "category";
+        return "adminsite/category/category";
     }
     @GetMapping(path = "/product")
     public String manageProduct(Model model){
         List<Product> products = productService.findAll();
         model.addAttribute("products", products);
-        return "product";
+        return "adminsite/product/product";
     }
     @GetMapping(path = "/user")
     public String manageUser(Model model){
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
-        return "user";
+        return "adminsite/user/user";
     }
 
     @GetMapping(path = "/order")
     public String manageOrder(Model model){
         List<Order> orders = orderService.getAllOrder();
         model.addAttribute("orders", orders);
-        return "order";
+        return "adminsite/order/order";
     }
 }
