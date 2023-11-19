@@ -1,9 +1,11 @@
 package com.project.project.controller;
 
 import com.project.project.model.Category;
+import com.project.project.model.Order;
 import com.project.project.model.Product;
 import com.project.project.model.User;
 import com.project.project.service.CategoryService;
+import com.project.project.service.OrderService;
 import com.project.project.service.ProductService;
 import com.project.project.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -22,9 +24,10 @@ public class AdminSiteController {
     private CategoryService categoryService;
     @Autowired
     private ProductService productService;
-
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
     @GetMapping(path = "")
     public String getAdminPage(HttpSession session){
         User user = (User) session.getAttribute("user");
@@ -54,5 +57,12 @@ public class AdminSiteController {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
         return "user";
+    }
+
+    @GetMapping(path = "/order")
+    public String manageOrder(Model model){
+        List<Order> orders = orderService.getAllOrder();
+        model.addAttribute("orders", orders);
+        return "order";
     }
 }

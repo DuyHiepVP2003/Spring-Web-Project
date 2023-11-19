@@ -6,8 +6,8 @@ import com.project.project.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +45,18 @@ public class OrderController {
         orderService.save(order);
         session.removeAttribute("cart");
         return "redirect:/home";
+    }
+
+    @GetMapping(path = "/admin/order/{id}")
+    public String orderDetail(@PathVariable Long id, Model model){
+        Order order = orderService.getOrderById(id).orElse(null);
+        model.addAttribute("order",order);
+        return "order-detail";
+    }
+
+    @RequestMapping(path = "/admin/order/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String deleteOrder(@PathVariable Long id){
+        orderService.deleteOrderById(id);
+        return "redirect:/admin/order";
     }
 }

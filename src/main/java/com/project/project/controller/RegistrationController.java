@@ -25,9 +25,6 @@ public class RegistrationController {
         if (!user.getPassword().equals(user.getConfirmPassword())){
             return "redirect:/register?error=passwordNotMatch";
         }
-        user.setName("");
-        user.setPhoneNumber("");
-        user.setAddress("");
         Role defaultRole = roleService.findById(2l).orElse(null);
         user.setRole(defaultRole);
         userService.save(user);
