@@ -38,23 +38,23 @@
                 <table class="min-w-max w-full table-auto">
                     <thead>
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                        <th class="py-3 px-6 text-left">ID</th>
                         <th class="py-3 px-6 text-left">Name</th>
                         <th class="py-3 px-6 text-center">Email</th>
                         <th class="py-3 px-6 text-center">Phone Number</th>
                         <th class="py-3 px-6 text-center">Address</th>
                         <th class="py-3 px-6 text-center">Role</th>
+                        <th class="py-3 px-6 text-center">Enabled</th>
                         <th class="py-3 px-6 text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
                     <tr class="border-b border-gray-200 hover:bg-gray-100" th:each="user:${users}">
-                        <td class="py-3 px-6 text-left whitespace-nowrap">[[${user.id}]]</td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">[[${user.name}]]</td>
                         <td class="py-3 px-6 text-center">[[${user.email}]]</td>
                         <td class="py-3 px-6 text-center">[[${user.phoneNumber}]]</td>
                         <td class="py-3 px-6 text-center">[[${user.address}]]</td>
                         <td class="py-3 px-6 text-center">[[${user.role.name}]]</td>
+                        <td class="py-3 px-6 text-center">[[${user.enabled}]]</td>
                         <td class="py-3 px-6 text-center">
                             <button class="bg-indigo-500 text-white hover:bg-indigo-700 py-1 px-3 rounded-full">
                                 <a th:href="@{'/admin/user/update/' + ${user.id}}">Sửa</a>

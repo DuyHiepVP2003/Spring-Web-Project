@@ -24,6 +24,9 @@ public class LoginController {
         if (!user.getPassword().equals(password)){
             return "redirect:/login?error=passwordWrong";
         }
+        if (!user.isEnabled()){
+            return "redirect:/login?error=userNotVerify";
+        }
         session.setAttribute("user", user);
         return "redirect:/home";
     }

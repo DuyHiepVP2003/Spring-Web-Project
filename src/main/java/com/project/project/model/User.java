@@ -32,6 +32,12 @@ public class User {
     @Column
     private String password;
 
+    @Column
+    private boolean enabled;
+
+    @Column(name = "verification_code",updatable = false)
+    private String verificationCode;
+
     @Transient
     private String confirmPassword;
 
