@@ -37,6 +37,9 @@ public class UserService {
     public Optional<User> findByUsername(String username){
         return userRepository.findByUsername(username);
     }
+    public Optional<User> findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
     public boolean existsByEmail(String email){
         return userRepository.existsByEmail(email);
     }
@@ -48,8 +51,11 @@ public class UserService {
         if (user == null) return false;
         return true;
     }
+    public Optional<User> findByVerificationCode(String verificationCode){
+        return userRepository.findByVerificationCode(verificationCode);
+    }
     public boolean verify(String verificationCode){
-        User user = userRepository.findByVerificationCode(verificationCode);
+        User user = userRepository.findByVerificationCode(verificationCode).orElse(null);
         if (user==null|| user.isEnabled()) return false;
         user.setEnabled(true);
         userRepository.save(user);
@@ -60,6 +66,25 @@ public class UserService {
         String senderName = "Group Name";
         String mailContent = "<p>Dear " + user.getName() +",</p>";
         mailContent+="<p>Please click the link below to verify to your registation:</p>";
+        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
+        mailContent+="<h3><a href=\""+ verifyURL + "\">VERIFY</a></h3>";
+        mailContent+="<p>Thank you<br>The Group Name</p>";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("buiduyhiep0@gmail.com", senderName);
+        helper.setTo(user.getEmail());
+        helper.setSubject(subject);
+        helper.setText(mailContent, true);
+        mailSender.send(message);
+    }
+
+    public void sendResetPasswordEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
+        String subject = "Please verify your request reset password";
+        String senderName = "Group Name";
+        String mailContent = "<p>Dear " + user.getName() +",</p>";
+        mailContent+="<p>Please click the link below to verify to your request:</p>";
         String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
         mailContent+="<h3><a href=\""+ verifyURL + "\">VERIFY</a></h3>";
         mailContent+="<p>Thank you<br>The Group Name</p>";

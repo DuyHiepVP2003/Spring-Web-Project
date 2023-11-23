@@ -35,7 +35,7 @@ public class User {
     @Column
     private boolean enabled;
 
-    @Column(name = "verification_code",updatable = false)
+    @Column(name = "verification_code")
     private String verificationCode;
 
     @Transient
