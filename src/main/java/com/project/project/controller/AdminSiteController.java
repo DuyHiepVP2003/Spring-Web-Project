@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -62,6 +63,7 @@ public class AdminSiteController {
     @GetMapping(path = "/order")
     public String manageOrder(Model model){
         List<Order> orders = orderService.getAllOrder();
+        Collections.reverse(orders);
         model.addAttribute("orders", orders);
         return "adminsite/order/order";
     }
