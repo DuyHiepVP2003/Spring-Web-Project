@@ -7,53 +7,25 @@
     <script src="http://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<header class="bg-white border-b border-gray-200 shadow-md">
-    <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-        <div class="flex lg:flex-1">
-            <a th:href="@{/home}" class="-m-1.5 p-1.5">
-                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
-            </a>
-        </div>
-        <div class="hidden lg:flex lg:gap-x-12">
-            <a th:href="@{/home}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500">Home</a>
-            <a th:href="@{/product}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500">Product</a>
-            <a th:href="@{/admin}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500">Manage</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500">Contact</a>
-        </div>
-        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a th:href="@{/cart}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500">Cart</a>
-            <a th:href="@{/login}" th:if="${isUserLogin == false}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500 ml-5">Login</a>
-            <a th:href="@{/register}" th:if="${isUserLogin == false}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500 ml-5 ">Register <span aria-hidden="true">&rarr;</span></a>
-            <a th:href="@{/logout}" th:if="${isUserLogin == true}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500 ml-5 ">Logout <span aria-hidden="true">&rarr;</span></a>
-        </div>
-    </nav>
-</header>
+<header th:replace="fragment/navigation :: navigation"></header>
 <div>
     <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight text-gray-900 text-center">List Product</h2>
-        <!-- Product Card  -->
         <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-
-
             <div th:each="product:${products}" class="group relative shadow-md px-1 py-1 rounded-xl">
                 <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                     <img th:src="${product.image}" alt="" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
                 </div>
                 <div class="mt-4">
-                    <div class="text-sm text-gray-700 overflow-hidden" style="max-height: 1.5em;">
+                    <div class="text-md text-gray-900 overflow-hidden" style="max-height: 1.5em;">
                         <a th:href="@{'/detail/' + ${product.id}}">
                             <span aria-hidden="true" class="absolute inset-0"></span>
                             [[${product.name}]]
                         </a>
                     </div>
-                    <p class="text-sm font-medium text-gray-900">[[${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}]]</p>
+                    <p class="text-sm font-medium text-red-600">[[${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}]]</p>
                 </div>
-                <button class="bg-blue-500 hover-bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded">
-                    Add To Cart
-                </button>
             </div>
-
-
             <!-- More products... -->
         </div>
     </div>

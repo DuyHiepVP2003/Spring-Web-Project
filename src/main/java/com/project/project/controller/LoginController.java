@@ -46,6 +46,7 @@ public class LoginController {
 
     @GetMapping(path = "/resetPassword")
     public String resetPassword(@RequestParam(name = "error", required = false)String error, Model model){
+        model.addAttribute("isUserLogin", false);
         model.addAttribute("error", error);
         return "reset-password";
     }
@@ -56,6 +57,7 @@ public class LoginController {
         if (user == null){
             return "redirect:/resetPassword?error=emailNotExist";
         }
+
         String randomString = RandomStringUtils.random(64, true, true);
         user.setVerificationCode(randomString);
         userService.save(user);
@@ -65,9 +67,10 @@ public class LoginController {
     }
 
     @GetMapping("/resetPasswordRequest/verify")
-    public String verifyResetPassword(@Param("code")String code){
+    public String verifyResetPassword(@Param("code")String code, Model model){
         User user = userService.findByVerificationCode(code).orElse(null);
         if (user==null) return "404";
+        model.addAttribute("isUserLogin", false);
         return "get-new-password";
     }
 

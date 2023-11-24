@@ -22,6 +22,10 @@ public class ProductController {
     private UserService userService;
     @GetMapping(path = "/detail/{id}")
     public String showDetail(@PathVariable Long id, Model model){
+        if (userService.isUserLogin()){
+            model.addAttribute("isUserLogin", true);
+        }
+        else model.addAttribute("isUserLogin", false);
         Product product = productService.findById(id).orElse(null);
         model.addAttribute("product", product);
         return "detail";

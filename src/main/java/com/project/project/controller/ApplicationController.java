@@ -45,11 +45,19 @@ public class ApplicationController {
     @GetMapping(path = "login")
     public String loginPage(@RequestParam(name = "error", required = false)String error, Model model){
         model.addAttribute("error", error);
+        if (userService.isUserLogin()){
+            model.addAttribute("isUserLogin", true);
+        }
+        else model.addAttribute("isUserLogin", false);
         return "login";
     }
 
     @GetMapping(path = "register")
     public String registerPage(@RequestParam(name = "error", required = false)String error, Model model){
+        if (userService.isUserLogin()){
+            model.addAttribute("isUserLogin", true);
+        }
+        else model.addAttribute("isUserLogin", false);
         model.addAttribute("user", new User());
         model.addAttribute("error", error);
         return "register";
@@ -87,5 +95,10 @@ public class ApplicationController {
     @GetMapping("/page_not_found")
     public String pageNotFound(Model model){
         return "404";
+    }
+
+    @GetMapping("/contact")
+    public String contactPage(Model model){
+        return "contact";
     }
 }
