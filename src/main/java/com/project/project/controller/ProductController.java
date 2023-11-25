@@ -33,6 +33,12 @@ public class ProductController {
 
     @GetMapping(path = "/admin/product/{id}")
     public String findProductById(@PathVariable Long id, Model model){
+        if (!userService.isUserLogin()) {
+            return "redirect:/login";
+        }
+        if (!userService.isUserRoleIsAdmin()){
+            return "redirect:/page_not_found";
+        }
         Product product = productService.findById(id).orElse(null);
         List<Category> categories = categoryService.findAll();
         model.addAttribute("product", product);
@@ -42,6 +48,12 @@ public class ProductController {
 
     @GetMapping(path = "/admin/product/addnew")
     public String addNewProduct(Model model){
+        if (!userService.isUserLogin()) {
+            return "redirect:/login";
+        }
+        if (!userService.isUserRoleIsAdmin()){
+            return "redirect:/page_not_found";
+        }
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories",categories);
         return "adminsite/product/product-addnew";
@@ -49,12 +61,24 @@ public class ProductController {
 
     @PostMapping(path = "/admin/product/save")
     public String saveNewProduct(Product product){
+        if (!userService.isUserLogin()) {
+            return "redirect:/login";
+        }
+        if (!userService.isUserRoleIsAdmin()){
+            return "redirect:/page_not_found";
+        }
         productService.save(product);
         return "redirect:/admin/product";
     }
 
     @RequestMapping(path = "/admin/product/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteProductById(@PathVariable Long id){
+        if (!userService.isUserLogin()) {
+            return "redirect:/login";
+        }
+        if (!userService.isUserRoleIsAdmin()){
+            return "redirect:/page_not_found";
+        }
         productService.deleteById(id);
         return "redirect:/admin/product";
     }

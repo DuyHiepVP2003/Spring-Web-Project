@@ -99,6 +99,10 @@ public class ApplicationController {
 
     @GetMapping("/contact")
     public String contactPage(Model model){
+        if (userService.isUserLogin()){
+            model.addAttribute("isUserLogin", true);
+        }
+        else model.addAttribute("isUserLogin", false);
         return "contact";
     }
 }

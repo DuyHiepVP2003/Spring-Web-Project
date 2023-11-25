@@ -3,6 +3,7 @@ package com.project.project.controller;
 import com.project.project.model.*;
 import com.project.project.service.OrderItemService;
 import com.project.project.service.OrderService;
+import com.project.project.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private UserService userService;
     @PostMapping(path = "/checkout")
     public String submitOrder(@ModelAttribute("orderForm") OrderFormDTO orderForm, HttpSession session){
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
@@ -49,6 +52,12 @@ public class OrderController {
 
     @GetMapping(path = "/admin/order/{id}")
     public String orderDetail(@PathVariable Long id, Model model){
+        if (!userService.isUserLogin()) {
+            return "redirect:/login";
+        }
+        if (!userService.isUserRoleIsAdmin()){
+            return "redirect:/page_not_found";
+        }
         Order order = orderService.getOrderById(id).orElse(null);
         model.addAttribute("order",order);
         return "adminsite/order/order-detail";
@@ -56,6 +65,12 @@ public class OrderController {
 
     @RequestMapping(path = "/admin/order/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteOrder(@PathVariable Long id){
+        if (!userService.isUserLogin()) {
+            return "redirect:/login";
+        }
+        if (!userService.isUserRoleIsAdmin()){
+            return "redirect:/page_not_found";
+        }
         orderService.deleteOrderById(id);
         return "redirect:/admin/order";
     }

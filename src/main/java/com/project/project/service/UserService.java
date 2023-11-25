@@ -51,6 +51,11 @@ public class UserService {
         if (user == null) return false;
         return true;
     }
+    public boolean isUserRoleIsAdmin(){
+        User user = (User) session.getAttribute("user");
+        if (user.getRole().getName().equals("ADMIN")) return true;
+        return false;
+    }
     public Optional<User> findByVerificationCode(String verificationCode){
         return userRepository.findByVerificationCode(verificationCode);
     }

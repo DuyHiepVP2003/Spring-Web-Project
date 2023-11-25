@@ -31,30 +31,47 @@ public class AdminSiteController {
     private OrderService orderService;
     @GetMapping(path = "")
     public String getAdminPage(HttpSession session){
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
+        if (!userService.isUserLogin()) {
             return "redirect:/login";
         }
-        if (!user.getRole().getName().equals("ADMIN")){
+        if (!userService.isUserRoleIsAdmin()){
             return "redirect:/page_not_found";
         }
-        return "adminsite/admin";
+        return "redirect:/admin/category";
     }
 
     @GetMapping(path = "/category")
     public String manageCategory(Model model){
+        if (!userService.isUserLogin()) {
+            return "redirect:/login";
+        }
+        if (!userService.isUserRoleIsAdmin()){
+            return "redirect:/page_not_found";
+        }
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
         return "adminsite/category/category";
     }
     @GetMapping(path = "/product")
     public String manageProduct(Model model){
+        if (!userService.isUserLogin()) {
+            return "redirect:/login";
+        }
+        if (!userService.isUserRoleIsAdmin()){
+            return "redirect:/page_not_found";
+        }
         List<Product> products = productService.findAll();
         model.addAttribute("products", products);
         return "adminsite/product/product";
     }
     @GetMapping(path = "/user")
     public String manageUser(Model model){
+        if (!userService.isUserLogin()) {
+            return "redirect:/login";
+        }
+        if (!userService.isUserRoleIsAdmin()){
+            return "redirect:/page_not_found";
+        }
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
         return "adminsite/user/user";
@@ -62,6 +79,12 @@ public class AdminSiteController {
 
     @GetMapping(path = "/order")
     public String manageOrder(Model model){
+        if (!userService.isUserLogin()) {
+            return "redirect:/login";
+        }
+        if (!userService.isUserRoleIsAdmin()){
+            return "redirect:/page_not_found";
+        }
         List<Order> orders = orderService.getAllOrder();
         Collections.reverse(orders);
         model.addAttribute("orders", orders);
