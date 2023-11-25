@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My App</title>
+    <title>Admin Site</title>
     <script src="http://cdn.tailwindcss.com"></script>
     <style>
         .sidebar {
@@ -40,12 +40,12 @@
                         <td class="py-3 px-6 text-center">
                             <button class="bg-indigo-500 text-white hover:bg-indigo-700 py-1 px-3 rounded-full">
                                 <a th:href="@{'/admin/order/' + ${order.id}}">
-                                    Xem
+                                    Detail
                                 </a>
                             </button>
                             <button class="bg-red-500 text-white hover:bg-red-700 py-1 px-3 rounded-full">
                                 <a th:href="@{'/admin/order/delete/' + ${order.id}}">
-                                    Xóa
+                                    Delete
                                 </a>
                             </button>
                         </td>

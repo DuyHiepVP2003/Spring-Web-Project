@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Cart</title>
     <script src="http://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -12,9 +12,7 @@
     <h1 class="text-3xl font-semibold">Shopping Cart</h1>
 </div>
 <div class="container mx-auto mt-6 flex ">
-    <!-- Bên trái - Danh sách sản phẩm trong giỏ -->
     <div class="w-2/3 pr-4">
-        <!-- Mỗi sản phẩm trong giỏ -->
         <div class="bg-white p-4 mb-4 relative flex items-center border-b border-gray-300" th:each="cartItem:${cart.cartItems}">
             <img th:src="${cartItem.product.image}" alt="Product" class="w-16 h-full object-cover rounded mr-4">
             <div class="flex-1">
@@ -36,8 +34,6 @@
                 <p id="total" class="text-gray-600"></p>
             </div>
         </div>
-        <!-- Thêm các sản phẩm khác trong giỏ tại đây -->
-
     </div>
 
     <!-- Bên phải - Order Summary -->

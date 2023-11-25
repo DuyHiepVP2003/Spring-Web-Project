@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My App</title>
+    <title>Admin Site</title>
     <script src="http://cdn.tailwindcss.com"></script>
     <style>
         .sidebar {
@@ -18,7 +18,7 @@
         <h1 class="text-2xl font-semibold border-b border-gray-300 p-5">Product Manage</h1>
         <!-- Nội dung bảng quản lý sẽ được thêm vào đây -->
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-4 rounded">
-            <a th:href="@{/admin/product/addnew}">Thêm sản phẩm</a>
+            <a th:href="@{/admin/product/addnew}">Add New Product</a>
         </button>
         <div class="w-full">
             <div class="bg-white shadow-md rounded my-2">
@@ -45,12 +45,12 @@
                         <td class="py-3 px-6 text-center">
                             <button class="bg-indigo-500 text-white hover:bg-indigo-700 py-1 px-3 rounded-full">
                                 <a th:href="@{'/admin/product/' + ${product.id}}">
-                                    Sửa
+                                    Update
                                 </a>
                             </button>
                             <button class="bg-red-500 text-white hover:bg-red-700 py-1 px-3 rounded-full">
                                 <a th:href="@{'/admin/product/delete/' + ${product.id}}">
-                                    Xóa
+                                    Delete
                                 </a>
                             </button>
                         </td>
