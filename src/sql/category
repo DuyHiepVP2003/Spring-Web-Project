@@ -1,3 +1,0 @@
-INSERT INTO category (name) VALUES ("IPhone");
-INSERT INTO category (name) VALUES ("Samsung");
-INSERT INTO category (name) VALUES ("Xiaomi");
